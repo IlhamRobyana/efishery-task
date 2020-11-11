@@ -15,7 +15,7 @@ func checkRegister(request entity.RegisterRequest) error {
 		return errors.New("Name must not be empty")
 	}
 
-	if request.Role != "Admin" || request.Role != "User" {
+	if request.Role != "Admin" && request.Role != "User" {
 		return errors.New("Invalid role")
 	}
 

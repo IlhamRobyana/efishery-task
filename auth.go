@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/getsentry/sentry-go"
+	"github.com/ilhamrobyana/efishery-task/config"
+	"github.com/ilhamrobyana/efishery-task/route"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -16,12 +17,12 @@ func main() {
 		panic(fmt.Sprintf("can't load .env : %v", err))
 	}
 
-	port := os.Getenv("APP_PORT")
-	dsn := os.Getenv("DSN")
+	port := os.Getenv("GOLANG_PORT")
 
 	e := echo.New()
 	e.Use(middleware.CORS())
+	config.Init(e)
+	route.Init(e)
 
-	sentry.Init(dsn)
 	e.Logger.Fatal(e.Start(":" + port))
 }
