@@ -20,13 +20,8 @@ type LoginResponse struct {
 	Token string `json:"token"`
 }
 
-// PrivateClaimsRequest is used as the request body on PrivateClaims
-type PrivateClaimsRequest struct {
-	Token string `json:"token" form:"token"`
-}
-
-// PrivateClaimsResponse is used as the response on PrivateClaims
-type PrivateClaimsResponse struct {
+// ValidateTokenResponse is used as the response on ValidateToken
+type ValidateTokenResponse struct {
 	Name      string    `json:"name"`
 	Phone     string    `json:"phone"`
 	Role      string    `json:"role"`

@@ -3,6 +3,7 @@ package auth
 import (
 	"errors"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/ilhamrobyana/efishery-task/entity"
 	"github.com/ilhamrobyana/efishery-task/helper"
 	"github.com/ilhamrobyana/efishery-task/storage"
@@ -34,5 +35,13 @@ func (c *core) login(phone, password string) (token string, e error) {
 	}
 
 	e = c.tokenStorage.Create(token)
+	return
+}
+
+func (c *core) validateToken(token string) (claims jwt.MapClaims, e error) {
+	if !c.tokenStorage.IsAvailable(token) {
+		return nil, errors.New("Token is invalid")
+	}
+	claims, e = helper.ParseToken(token)
 	return
 }
