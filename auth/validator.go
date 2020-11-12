@@ -21,3 +21,13 @@ func checkRegister(request entity.RegisterRequest) error {
 
 	return nil
 }
+
+func checkLogin(request entity.LoginRequest) error {
+	if len(request.Phone) == 0 {
+		return errors.New("Phone must not be empty")
+	}
+	if len(request.Password) == 0 {
+		return errors.New("Password must not be empty")
+	}
+	return nil
+}

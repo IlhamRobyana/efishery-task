@@ -26,14 +26,35 @@ func Register(c echo.Context) error {
 	user.Role = r.Role
 
 	authCore := getCore()
-	createdUser, e := authCore.register(*user)
+	createdUser, err := authCore.register(*user)
 
-	if e != nil {
+	if err != nil {
 		httpStatus := http.StatusInternalServerError
-		return c.JSON(httpStatus, map[string]interface{}{"message": e.Error})
+		return c.JSON(httpStatus, map[string]interface{}{"message": err.Error})
 	}
 
 	return c.JSON(http.StatusCreated, createdUser)
+}
+
+func Login(c echo.Context) error {
+	r := new(entity.LoginRequest)
+	if err := c.Bind(r); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{"message": "Invalid request data"})
+	}
+
+	if err := checkLogin(*r); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{"message": err.Error()})
+	}
+
+	authCore := getCore()
+	token, err := authCore.login(r.Phone, r.Password)
+	if err != nil {
+		httpStatus := http.StatusInternalServerError
+		return c.JSON(httpStatus, map[string]interface{}{"message": err.Error})
+	}
+
+	response := entity.LoginResponse{Token: token}
+	return c.JSON(http.StatusOK, response)
 }
 
 func getCore() (c *core) {
@@ -42,8 +63,10 @@ func getCore() (c *core) {
 	if c == nil {
 		c = new(core)
 		userStorage, _ := storage.GetUserStorage(storage.Postgre)
+		tokenStorage, _ := storage.GetTokenStorage(storage.Redis)
 
 		c.userStorage = userStorage
+		c.tokenStorage = tokenStorage
 		coreInstance = c
 	}
 

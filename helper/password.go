@@ -7,7 +7,7 @@ import (
 )
 
 func GeneratePassword(length int) (str string) {
-	pass, err := password.Generate(4, 2, 2, false, false)
+	pass, err := password.Generate(4, 0, 0, false, true)
 	if err != nil {
 		panic(fmt.Sprintf("%v", err))
 	}

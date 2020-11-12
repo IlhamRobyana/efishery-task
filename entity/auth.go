@@ -9,12 +9,6 @@ type RegisterRequest struct {
 	Role  string `json:"role" form:"role"`
 }
 
-// RegisterResponse is used as the response on register
-type RegisterResponse struct {
-	RegisterRequest RegisterRequest `json:"register_request"`
-	Password        string          `json:"password"`
-}
-
 // LoginRequest is used as the request body on login
 type LoginRequest struct {
 	Phone    string `json:"phone" form:"phone"`
