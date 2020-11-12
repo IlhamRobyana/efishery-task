@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/ilhamrobyana/efishery-task/auth"
+	"github.com/ilhamrobyana/efishery-task/auth-api/auth"
 	"github.com/labstack/echo"
 )
 

@@ -4,9 +4,9 @@ import (
 	"errors"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/ilhamrobyana/efishery-task/entity"
-	"github.com/ilhamrobyana/efishery-task/helper"
-	"github.com/ilhamrobyana/efishery-task/storage"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/helper"
+	"github.com/ilhamrobyana/efishery-task/auth-api/storage"
 )
 
 type core struct {

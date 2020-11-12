@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ilhamrobyana/efishery-task/config"
-	"github.com/ilhamrobyana/efishery-task/route"
+	"github.com/ilhamrobyana/efishery-task/auth-api/config"
+	"github.com/ilhamrobyana/efishery-task/auth-api/route"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"

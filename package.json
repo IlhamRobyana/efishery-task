@@ -1,0 +1,30 @@
+{
+  "name": "efishery-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fetching.js",
+  "dependencies": {
+    "core-js": "^2.6.11",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-routes-mapper": "^1.1.0",
+    "helmet": "^4.2.0",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlhamRobyana/efishery-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IlhamRobyana/efishery-task/issues"
+  },
+  "homepage": "https://github.com/IlhamRobyana/efishery-task#readme"
+}

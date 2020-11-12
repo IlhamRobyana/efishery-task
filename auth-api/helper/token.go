@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/ilhamrobyana/efishery-task/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
 )
 
 func GenerateToken(user entity.User) (token string, e error) {

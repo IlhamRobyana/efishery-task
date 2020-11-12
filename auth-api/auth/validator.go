@@ -3,7 +3,7 @@ package auth
 import (
 	"errors"
 
-	"github.com/ilhamrobyana/efishery-task/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
 )
 
 func checkRegister(request entity.RegisterRequest) error {

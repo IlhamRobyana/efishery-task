@@ -3,7 +3,7 @@ package storage
 import (
 	"errors"
 
-	redis "github.com/ilhamrobyana/efishery-task/redis_storage"
+	redis "github.com/ilhamrobyana/efishery-task/auth-api/redis_storage"
 )
 
 type TokenStorage interface {

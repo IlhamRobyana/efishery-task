@@ -1,8 +1,8 @@
 package pg_storage
 
 import (
-	"github.com/ilhamrobyana/efishery-task/entity"
-	"github.com/ilhamrobyana/efishery-task/helper"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/helper"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
 )
@@ -19,7 +19,7 @@ func (u *User) Create(user entity.User) (entity.User, error) {
 
 	registered := checkRegisteredByPhone(client, user.Phone)
 	if !registered {
-		user.UUID, _ = uuid.NewV4()
+		user.UUID = uuid.NewV4()
 		for {
 			pass := helper.GeneratePassword(4)
 			e = client.Where("password=?", pass).Find(&entity.User{}).Error

@@ -3,8 +3,8 @@ package storage
 import (
 	"errors"
 
-	"github.com/ilhamrobyana/efishery-task/entity"
-	pg "github.com/ilhamrobyana/efishery-task/pg_storage"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
+	pg "github.com/ilhamrobyana/efishery-task/auth-api/pg_storage"
 )
 
 type UserStorage interface {

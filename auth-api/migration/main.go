@@ -7,8 +7,8 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 
-	"github.com/ilhamrobyana/efishery-task/entity"
-	"github.com/ilhamrobyana/efishery-task/pg_storage"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/pg_storage"
 )
 
 func main() {

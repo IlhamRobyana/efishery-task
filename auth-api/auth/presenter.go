@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ilhamrobyana/efishery-task/entity"
-	"github.com/ilhamrobyana/efishery-task/storage"
+	"github.com/ilhamrobyana/efishery-task/auth-api/entity"
+	"github.com/ilhamrobyana/efishery-task/auth-api/storage"
 	"github.com/labstack/echo"
 )
 
