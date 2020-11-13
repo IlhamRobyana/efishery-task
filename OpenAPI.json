@@ -1,0 +1,227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API built for eFishery recruitment task. \n",
+    "version": "1.0.0",
+    "title": "efishery-task",
+    "contact": {
+      "email": "ilhamrobyanasofyan@gmail.com"
+    }
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/IlhamRobyana/efishery-task/1.0.0",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Authorization API built using Golang"
+    },
+    {
+      "name": "fetching",
+      "description": "Resource Fetching API built using NodeJS"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register a new account",
+        "operationId": "register",
+        "consumes": [
+          "form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of the will-be-registered account",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful registration"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login using the credentials",
+        "operationId": "Login",
+        "consumes": [
+          "form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The credentials of the account",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful login"
+          }
+        }
+      }
+    },
+    "/auth/validate-token": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Validate the JWT token and return the private claims",
+        "operationId": "validate-token",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "valid token"
+          }
+        }
+      }
+    },
+    "/fetching/fetch": {
+      "get": {
+        "tags": [
+          "fetching"
+        ],
+        "summary": "Fetch the resources from eFishery commodity JSON",
+        "operationId": "fetch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful fetch"
+          }
+        }
+      }
+    },
+    "/fetching/aggregate": {
+      "get": {
+        "tags": [
+          "fetching"
+        ],
+        "summary": "Aggregate the resources based on province and date",
+        "operationId": "aggregate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful fetch"
+          }
+        }
+      }
+    },
+    "/fetching/validate-token": {
+      "get": {
+        "tags": [
+          "fetching"
+        ],
+        "summary": "Validate the JWT token and return the private claims",
+        "operationId": "validate-token-fetch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "valid token"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Register": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Admin",
+            "User"
+          ]
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Admin",
+            "User"
+          ]
+        },
+        "password": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "deleted_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
