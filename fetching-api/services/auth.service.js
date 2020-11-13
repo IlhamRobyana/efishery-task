@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const secret = process.env.JWT_SECRET;
+const secret = process.env.TOKEN_SECRET;
 
-const auth = () => {
+const authService = () => {
     const verifyToken = (token, cb) => jwt.verify(token, secret, {}, cb);
     const verifyHasRoleAdmin = async (req) => {
         const token = req.headers.authorization.split(' ')[1];
@@ -21,4 +21,4 @@ const auth = () => {
     };
 }
 
-module.exports = auth;
+module.exports = authService;

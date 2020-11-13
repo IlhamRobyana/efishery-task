@@ -6,7 +6,7 @@ const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
 
 const config = require('./fetching-api/config/');
-const auth = require('./fetching-api/auth/auth')
+const auth = require('./fetching-api/policies/auth.policy')
 
 const app = express();
 const server = http.Server(app);
