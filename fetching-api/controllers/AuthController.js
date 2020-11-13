@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const redis = require("redis");
 const secret = process.env.TOKEN_SECRET;
 
 const AuthController = () => {

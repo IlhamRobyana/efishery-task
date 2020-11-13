@@ -1,13 +1,71 @@
+const authService = require('../services/auth.service');
+const currencyService = require("../services/currency.service");
+const Comodity = require('../models/Comodity');
+const fetch = require('node-fetch');
+const url = 'https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4/list';
+const settings = { method: "Get" };
+
+const urlCurrency = 'https://free.currconv.com/api/v7/convert?q=IDR_USD&compact=ultra&apiKey=b3eb57a74dcf08edf175'
+const redis = require("redis");
+
+let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+
+
 const FetchingController = () => {
-    const fetch = async (req,res) => {
-        const { body } = req;
-        return
+    const fetchAll = async (req,res) => {
+        try {
+            var usd_rate = 0;
+            try {
+                redisClient.get("idr_usd", function(err, val) {
+                    usd_rate = parseFloat(val);
+                });
+            } catch (err) {
+                try {
+                    fetch(urlCurrency, settings)
+                    .then(res => res.json())
+                    .then((json) => {
+                        redisClient.set("idr_usd", json.IDR_USD);
+                        usd_rate = parseFloat(json.IDR_USD);
+                    });
+                } catch (err) {
+
+                }
+            } 
+            // I didn't make the currency conversion a method because it always
+            // returns an empty value
+            fetch(url, settings)
+                .then(res => res.json())
+                .then((json) => {
+                    var response = [];
+                    json.forEach(obj => {
+                        let usd = obj.price * usd_rate;
+                        let comodity = new Comodity(obj, usd)
+                        response.push(comodity)
+                    })
+                    return res.status(201).json({ response });
+                });
+        } catch (err) {
+            return res.status(400);
+        }
     };
     const aggregate = async (req,res) => {
-        return
+        if (await authService().verifyHasRoleAdmin(req)) {
+            try {
+                fetch(url, settings)
+                    .then(res => res.json())
+                    .then((json) => {
+                        return res.status(201).json({ json });
+                    });
+            } catch (err) {
+                return res.status(400);
+            }
+        } else {
+            return res.status(401).json({ msg: 'Unauthorized' });
+        }
     };
+
     return {
-        fetch,
+        fetchAll,
         aggregate,
     }
 }

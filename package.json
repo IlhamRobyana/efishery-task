@@ -12,6 +12,8 @@
     "helmet": "^4.2.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1",
+    "nodejs-currency-converter": "^1.0.2",
     "redis": "^3.0.2"
   },
   "devDependencies": {},

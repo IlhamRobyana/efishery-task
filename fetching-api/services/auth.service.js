@@ -7,7 +7,7 @@ const authService = () => {
         const token = req.headers.authorization.split(' ')[1];
         try {
             const decoded = jwt.verify(token, secret)
-            if (decoded.role === 'ADMIN') {
+            if (decoded.role === 'Admin') {
                 return true;
             }
             return false;
