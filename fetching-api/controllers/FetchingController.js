@@ -7,6 +7,7 @@ const settings = { method: "Get" };
 const jsonAggregate = require('json-aggregate')
 const urlCurrency = 'https://free.currconv.com/api/v7/convert?q=IDR_USD&compact=ultra&apiKey=b3eb57a74dcf08edf175'
 const redis = require("redis");
+const mathjs = require("mathjs")
 
 let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
@@ -57,14 +58,27 @@ const FetchingController = () => {
                 fetch(url, settings)
                     .then(res => res.json())
                     .then((json) => {
-                        var stringified = JSON.stringify(json)
-                        const collection = jsonAggregate.create(stringified);
-                        var grouped = collection.group({
-                            id : ['area_provinsi', 'tgl_parsed'],
-                            min : { $min: 'price' },
-                            max : { $max: 'price'},
-                            average : { $avg: 'price'}
-                        }).exec()
+                        hash = json.reduce((p, c) => (p[c.area_provinsi] ? p[c.area_provinsi].push(c) : p[c.area_provinsi] = [c],p), {}),
+                        grouped = Object.keys(hash).map(k => ({area_provinsi: k, komoditas: hash[k]}))
+                        grouped.forEach(obj => {
+                            var list = [];
+                            obj.komoditas.forEach( obj2 => {
+                                list.push(parseInt(obj2.price))
+                                delete obj2
+                            })
+                            obj.min = mathjs.min(list)
+                            obj.max = mathjs.max(list)
+                            obj.avg = mathjs.mean(list)
+                            obj.median = mathjs.median(list)
+                        })
+                        // var stringified = JSON.stringify(json)
+                        // const collection = jsonAggregate.create(stringified);
+                        // var grouped = collection.group({
+                        //     id : ['area_provinsi', 'tgl_parsed'],
+                        //     min : { $min: 'price' },
+                        //     max : { $max: 'price'},
+                        //     average : { $avg: 'price'}
+                        // }).exec()
                         return res.status(200).json({ grouped });
                     });
             } catch (err) {
@@ -74,6 +88,7 @@ const FetchingController = () => {
             return res.status(401).json({ msg: 'Unauthorized' });
         }
     };
+    
 
     return {
         fetchAll,

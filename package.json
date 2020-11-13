@@ -15,6 +15,7 @@
     "http": "^0.0.1-security",
     "json-aggregate": "^0.1.2",
     "jsonwebtoken": "^8.5.1",
+    "mathjs": "^8.0.1",
     "node-fetch": "^2.6.1",
     "nodejs-currency-converter": "^1.0.2",
     "redis": "^3.0.2"
